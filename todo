@@ -47,7 +47,7 @@ class ToDo {
     list() {
         let todos = db.get('todos').value();
 
-        if (!todos.length) {
+        if (!todos || !todos.length) {
             p("You Don't have any todos! Lucky you!".green);
             return;
         }
