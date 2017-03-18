@@ -2,9 +2,8 @@
 ### A very simple todo list app for the terminal
 
 
-<span style="color:red;">
+<span style="color:red;font-weight:bold;">
 PLEASE NOTE, THIS IS WORK IN PROGRESS</span>
-
 
 ## Why?
 Well, other than the usual why not, it's because I was bored one afternoon without a lot to do so I've created it!.
@@ -17,7 +16,11 @@ You can always use --help to see what it does but here we go.
 2. run **npm install**
 3. That's it now you can run the below commands
 
-NOTE: you can add the project folder to your PATH variable so you can run todo from anywhere, or simply run **./todo** inside the cloned folder
+NOTE: you can add the project folder to your PATH variable like so you can run todo from anywhere e.g.
+
+    export PATH=$(pwd):$PATH
+
+or simply run **./todo** inside the cloned folder
 
 #### Commands
 
