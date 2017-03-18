@@ -112,11 +112,25 @@ function init() {
 
 function help() {
     let helpTxt = `
-        Commands:
-            ${'New todo'.bold}:
-                todo "todo text"    #Notice the double quotes!
-            ${'Done todo'.bold}:
-                todo done ID        #where ID is the todo id
+    Commands:
+    
+        ${'New Todo'.bold}
+            todo "todo text"
+
+        ${'Done Todo'.bold}
+            todo done ID
+
+        ${'Delete Todo'.bold}
+            todo delete ID
+
+        ${'Wipe todos'.bold}
+            todo wipe
+
+        ${'List todo'.bold}
+            todo list
+
+        ${'Save todo to a text file'.bold}
+            todo > todos.txt
 
 
     `
