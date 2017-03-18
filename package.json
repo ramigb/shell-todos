@@ -1,0 +1,20 @@
+{
+    "name": "todos",
+    "version": "1.0.0",
+    "description": "",
+    "main": "todo",
+    "bin": "todo",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "./todo"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "colors": "^1.1.2",
+        "lowdb": "^0.16.0",
+        "optimist": "^0.6.1",
+        "uuid": "^3.0.1"
+    }
+}

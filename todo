@@ -1,0 +1,128 @@
+#!/usr/bin/env node
+'use strict'
+
+const argv = require('optimist').argv;
+const db = require('lowdb')('todos.json');
+const uuid = require('uuid');
+const colors = require('colors');
+
+const p = (x) => {
+    let tab = " ";
+    console.log(tab + x)
+};
+
+const nl = () => {
+    console.log("\n")
+}
+
+
+
+
+class ToDo {
+    constrcutor() {
+        db.defaults({ todos: [] }).write()
+    }
+    save(toDoBody) {
+        let todo = {
+            id: uuid(),
+            todo: toDoBody,
+            done: false,
+            created_at: Date()
+        }
+        db.get('todos').push(todo).write()
+    }
+
+    done(todoId) {
+        db.get('todos').find({ id: todoId }).assign({ done: true }).write()
+    }
+
+    delete(todoId) {
+        db.get('todos').remove({ id: todoId }).write();
+    }
+
+    wipe() {
+        db.setState({ todos: [] })
+    }
+
+    list() {
+        let todos = db.get('todos').value();
+
+        if (!todos.length) {
+            p("You Don't have any todos! Lucky you!".green);
+            return;
+        }
+
+        p('Here are your todos:'.bold.underline.white);
+        nl();
+        todos.map((todo) => {
+
+            if (todo.done) {
+                p(`✓ ${todo.todo}`.strikethrough.green)
+            } else {
+                p(`- ${todo.todo}`.magenta)
+            }
+            p(`ID: ${todo.id}, TIME: ${todo.created_at}`.dim.underline)
+            nl();
+        })
+    }
+}
+
+
+
+function init() {
+    // Specific commands
+    if (argv.help) {
+        help();
+        return;
+    }
+
+
+
+    let toDos = new ToDo();
+    // Todo symantics
+    switch (argv._[0]) {
+        // Nothing to do!
+        case "list":
+            toDos.list();
+            break;
+
+        case "done":
+            toDos.done(argv._[1])
+            toDos.list();
+            break;
+
+        case "delete":
+            for (var index = 1; index < argv._.length; index++) {
+                toDos.delete(argv._[index])
+            }
+            toDos.list();
+            break;
+
+        case "wipe":
+            toDos.wipe()
+            break;
+        default:
+            if (argv._[0] && argv._[0].length > 0) {
+                toDos.save(argv._[0])
+            }
+            toDos.list();
+            break;
+    }
+}
+
+function help() {
+    let helpTxt = `
+        Commands:
+            ${'New todo'.bold}:
+                todo "todo text"    #Notice the double quotes!
+            ${'Done todo'.bold}:
+                todo done ID        #where ID is the todo id
+
+
+    `
+    console.log(helpTxt);
+}
+
+
+// Even though this function is hoisted, but we'll call it here!
+init();
